@@ -1,12 +1,16 @@
-import { useState } from 'react'
-import logo from './logo.svg'
 import './App.css'
-import TimeLine from "./components/timeline";
+import Login from './pages/login';
+import { Routes, Route} from "react-router-dom";
+import Homepage from './pages/home';
+import Dashboard from './pages/dashboard';
+
 function App() {
   return (
-    <div className="App">
-        <TimeLine/>
-    </div>
+    <Routes>
+      <Route path='/' element={<Homepage/>} ></Route>
+      <Route path='/login' element={<Login/>} ></Route>
+      <Route path='/dashboard' element={<Dashboard/>} ></Route>
+    </Routes>
   )
 }
 
