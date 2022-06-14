@@ -25,15 +25,3 @@ export default function Homepage() {
     </div>
   )
 }
-// {
-//   "descriptions": "",
-//   "name": "",
-//   "github": "https://github.com/rajratnamaitry/",
-//   "url": "",
-//   "date": {
-//       "seconds": 1652466600,
-//       "nanoseconds": 0
-//   },
-//   "stack": [],
-//   "id": ""
-// }
