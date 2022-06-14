@@ -8,14 +8,41 @@ import { useEffect, useState } from 'react'
 import { app, database } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { addDoc, collection } from 'firebase/firestore'
 import NavBar from '../components/navBar';
+import TableData from '../components/TableData';
 export default function Dashboard() {
   const auth = getAuth();
+  const collectionRef = collection(database, 'projects');
   const navigate = useNavigate();
+
+  const [inputData, setInputData] = useState({});
   const [isLogin, setIsLogin] = useState(false);
+ 
   const handleInput = (e) => {
     const input = { [e.target.name]: e.target.value };
-    setData({ ...data, ...input });
+    setInputData({ ...inputData, ...input });
+  }
+  const mapData = (data) =>{
+     const fdata =  {
+        "descriptions": data.descriptions,
+        "github": data.github,
+        "name": data.name,
+        "url": data.url,
+        "date": {
+            "seconds": new Date(data.date).getTime(),
+            "nanoseconds": 0
+        },
+        "stack": data.stack.split(',')
+      }
+      return fdata;
+  }
+  const handleSubmit = () => {
+    const body = mapData(inputData);
+    console.log('data',body)
+    addDoc(collectionRef,body).then((res)=>{
+      console.log('added',res);
+    })
   }
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -72,50 +99,38 @@ export default function Dashboard() {
                       placeholder="Enter Name" />
                   </Form.Group>
                 </Row>
-
-                <Form.Group className="mb-3" controlId="formGridAddress1">
-                  <Form.Label>URL</Form.Label>
-                  <Form.Control type="text" name="url" placeholder="Public url" />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formGridAddress2">
-                  <Form.Label>Github</Form.Label>
-                  <Form.Control type="text" name="github" placeholder="Github url" />
-                </Form.Group>
-
+                <Row className="mb-3">
+                  <Form.Group as={Col} controlId="formGridAddress1">
+                    <Form.Label>URL</Form.Label>
+                    <Form.Control type="text" name="url" onChange={(event) => handleInput(event)} placeholder="Public url" />
+                  </Form.Group>
+                  <Form.Group as={Col} controlId="formGridAddress2">
+                    <Form.Label>Github</Form.Label>
+                    <Form.Control type="text" name="github" onChange={(event) => handleInput(event)} placeholder="Github url" />
+                  </Form.Group>
+                </Row>
                 <Form.Group className="mb-3" controlId="formGridAddress2">
                   <Form.Label>Descriptions</Form.Label>
-                  <Form.Control type="text" name="descriptions" placeholder="Descriptions" />
+                  <Form.Control type="text" name="descriptions" onChange={(event) => handleInput(event)} placeholder="Descriptions" />
                 </Form.Group>
 
                 <Row className="mb-3">
                   <Form.Group as={Col} controlId="formGridCity">
                     <Form.Label>Stack</Form.Label>
-                    <Form.Control type="text" name="stack" placeholder="tech Stack" />
+                    <Form.Control type="text" name="stack" onChange={(event) => handleInput(event)} placeholder="Tech Stack" />
                   </Form.Group>
                 </Row>
-                <Button variant="primary" type="button">
+                <Button variant="primary" type="button" onClick={()=>handleSubmit()}>
                   Submit
                 </Button>
               </Form>
             </Col>
             <h2>Section title</h2>
-              {/* Table */}
+            {/* Table */}
+            <TableData/>
           </main>
         </Row>
       </Container>
     </>
   )
 }
-// {
-//   "descriptions": "",
-//   "name": "",
-//   "github": "https://github.com/rajratnamaitry/",
-//   "url": "",
-//   "date": {
-//       "seconds": 1652466600,
-//       "nanoseconds": 0
-//   },
-//   "stack": [],
-//   "id": ""
-// }
