@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { app, database } from "../firebase";
 import { getDocs, collection } from 'firebase/firestore'
+import Tbody from './tbody';
 export default function TableData() {
     const [list, setList] = useState([]);
     const collectionRef = collection(database, 'projects');
@@ -8,8 +9,7 @@ export default function TableData() {
         getDocs(collectionRef).then((data) => {
             const fdata = data.docs.map(e => {
                 return { ...e.data(), id: e.id };
-            })
-            console.log('data',fdata);
+            });
             setList(fdata);
         });
     }
@@ -27,9 +27,7 @@ export default function TableData() {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        list.map((td)=><tr><td className="text-light" >{td.name}</td><td className="text-light" >{ new Date(td.date.seconds)}</td></tr>)
-                    }
+                    {list.map((td)=> <Tbody name={td.name} date={td.date.seconds} key={td.id} />)}
                 </tbody>
             </table>
         </div>

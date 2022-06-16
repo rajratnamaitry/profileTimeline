@@ -30,7 +30,7 @@ export default function Dashboard() {
         "name": data.name,
         "url": data.url,
         "date": {
-            "seconds": new Date(data.date).getTime(),
+            "seconds": (new Date(data.date).getTime() / 1000),
             "nanoseconds": 0
         },
         "stack": data.stack.split(',')
@@ -120,9 +120,8 @@ export default function Dashboard() {
                     <Form.Control type="text" name="stack" onChange={(event) => handleInput(event)} placeholder="Tech Stack" />
                   </Form.Group>
                 </Row>
-                <Button variant="primary" type="button" onClick={()=>handleSubmit()}>
-                  Submit
-                </Button>
+                <Button variant="primary" type="button" onClick={()=>handleSubmit()}>Submit</Button>
+                <Button variant="primary" type="reset">Reset</Button>
               </Form>
             </Col>
             <h2>Section title</h2>
