@@ -32,7 +32,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8a9196', end
   margin-bottom:30px;
 }
 
-.timeline-month span{
+.timeline-month span , .timeline-date span{
   position:absolute;
   top:-1px;
   left:calc(100% - 10px);
@@ -71,7 +71,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8a9196', end
 
 .timeline-date{
   margin-bottom:15px;
-  padding:2px 15px;
+  padding:4px 15px;
   background:linear-gradient(#74cae3, #5bc0de 60%, #4ab9db);
   position:relative;
   display:inline-block;

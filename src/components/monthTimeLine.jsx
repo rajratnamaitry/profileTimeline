@@ -5,7 +5,8 @@ export default function MonthTimeLine({month, data}) {
   return (
     <div className="timeline-section">
       <div className="timeline-date">
-        {month}
+        In {month}
+        <span>{ data.length } Entries</span>
       </div>
       <div className="row">
         {data.map((project)=>(<div className="col-lg-4 col-md-6 col-sm-12 pb-3">
