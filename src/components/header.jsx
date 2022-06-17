@@ -4,7 +4,7 @@ export default function Header() {
     return (
         <div className="header">
             <img src={img} alt="Avatar" className="avatar" />
-            <h1>Open source</h1>
+            <h1>Rajratna Maitry</h1>
             <h2>A timeline that shows open source contributions all the way to present day.</h2>
         </div>
     )

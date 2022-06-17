@@ -48,7 +48,7 @@ export default function Homepage() {
   return (
     <div className="container">
       <Header />
-      {list.map(e => <TimeLine key={e.id} project={e} />)}
+      {list.sort((a,b)=>b.year - a.year).map(e => <TimeLine key={e.id} project={e} />)}
     </div>
   )
 }
