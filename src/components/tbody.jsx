@@ -22,7 +22,7 @@ export default function Tbody({name ,date, id}) {
         <td className="text-light" >{ name }</td>
         <td className="text-light" >{ nDate }</td>
         <td className="text-light" >
-          <Link to={"/update/"+id} ><BsFillPencilFill size={SIZE}/></Link>{' '}
+          <Link to={"/update/"+id} target="_blank" ><BsFillPencilFill size={SIZE}/></Link>{' '}
           <BsFillTrashFill size={SIZE} onClick={()=> deleteRow(id) }/>
         </td>
     </tr>

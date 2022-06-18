@@ -23,8 +23,9 @@ export default function MonthTimeLine({ month, data }) {
                 {' '}{project.url ? <a className='text-light' href={project.url} target='_blank' >Public url</a> : ''}
               </div>
               <div className="box-item"><strong>Date</strong>: {project.date.displayDate}</div>
+              <div className="box-item"><strong>Descriptions</strong>: {project.descriptions}</div>
             </div>
-            {/* <div className="box-footer">- Tyler</div> */}
+            <div className="box-footer">- <span className={project.mode !='private'?'text-info text-capitalize':'text-warning text-capitalize'}>{ project.mode }</span></div>
           </div>
         </div>)
         )}

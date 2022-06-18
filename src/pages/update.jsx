@@ -23,6 +23,7 @@ export default function Update() {
   const mapData = (data) => {
     const stack = ( typeof data.stack == 'string') ? data.stack.split(',') : data.stack;
     const fdata = {
+      "mode": data.mode,
       "descriptions": data.descriptions,
       "github": data.github || null,
       "name": data.name,
@@ -89,11 +90,12 @@ export default function Update() {
                     placeholder="Enter Name" />
                 </Form.Group>
                 <Form.Group as={Col} controlId="formGridEmail">
-                  <Form.Label>Date</Form.Label>
-                  <Form.Control type="date"
-                    name="date"
-                    disabled
-                    placeholder="Enter Name" />
+                  <Form.Label>Type</Form.Label>
+                  <Form.Control type="text"
+                    name="mode"
+                    value={inputData.mode}
+                    onChange={(event) => handleInput(event)}
+                    placeholder="Enter type" />
                 </Form.Group>
               </Row>
               <Row className="mb-3">
