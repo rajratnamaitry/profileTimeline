@@ -37,7 +37,6 @@ export default function Homepage() {
         });
         newProjectList.push({year,nMonthMap})
       });
-      console.log(newProjectList);
       setList(newProjectList);
     });
   }

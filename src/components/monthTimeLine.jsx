@@ -8,7 +8,7 @@ export default function MonthTimeLine({ month, data }) {
         <span>{data.length} Entries</span>
       </div>
       <div className="row">
-        {data.sort((a,b)=> b.date.date - a.date.date).map((project) => (<div className="col-lg-4 col-md-6 col-sm-12 pb-3">
+        {data.sort((a,b)=> b.date.date - a.date.date).map((project) => (<div className="col-lg-4 col-md-6 col-sm-12 pb-3"  key={project.date.seconds}>
           <div className="timeline-box">
             <div className="box-title">
               <i className="fa fa-asterisk text-success" aria-hidden="true"></i> {project.name}
