@@ -1,7 +1,7 @@
-import React from 'react'
-import Nav from 'react-bootstrap/Nav'
-import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import Nav from 'react-bootstrap/Nav'
+
 export default function NavBar() {
     const auth = getAuth();
     const navigate = useNavigate();

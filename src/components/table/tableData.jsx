@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
-import { app, database } from "../firebase";
+import { database } from "../../firebase";
 import { getDocs, collection } from 'firebase/firestore'
+import { useState, useEffect } from 'react'
 import Tbody from './tbody';
 export default function TableData() {
     const [list, setList] = useState([]);
@@ -28,7 +28,9 @@ export default function TableData() {
                     </tr>
                 </thead>
                 <tbody>
-                    {list.sort((a,b)=>a.date.seconds - b.date.seconds).map((td)=> <Tbody name={td.name} date={td.date.seconds} key={td.id} id={td.id} />)}
+                    {list
+                        .sort((a,b)=>a.date.seconds - b.date.seconds)
+                        .map((td)=> <Tbody name={td.name} date={td.date.seconds} key={'tbody'+td.id} id={td.id} />)}
                 </tbody>
             </table>
         </div>

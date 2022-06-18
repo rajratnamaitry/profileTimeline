@@ -1,4 +1,3 @@
-import React from "react"
 import MonthTimeLine from "./monthTimeLine"
 export default function Timeline({project, total}) {
     return (

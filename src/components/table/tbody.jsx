@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import { database } from "../../firebase";
 import { BsFillPencilFill, BsFillTrashFill } from "react-icons/bs";
-import { app, database } from "../firebase";
+import { doc, deleteDoc } from 'firebase/firestore'
 import { Link } from 'react-router-dom'
-import { doc, deleteDoc, collection } from 'firebase/firestore'
+import { useState, useEffect } from 'react'
 export default function Tbody({name ,date, id}) {
     const [nDate , setNdate] = useState('');
     const SIZE = 30;

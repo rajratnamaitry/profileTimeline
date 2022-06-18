@@ -1,16 +1,15 @@
 import { addDoc, collection } from 'firebase/firestore'
-import { app, database } from "../firebase";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { database } from "../firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button'
-import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
+import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
-import NavBar from '../components/navBar';
-import React from 'react'
 import Row from 'react-bootstrap/Row'
-import TableData from '../components/TableData';
+import NavBar from '../components/common/navBar';
+import TableData from '../components/table/TableData';
 // import Toster from '../components/toster';
 export default function Dashboard() {
   const auth = getAuth();
@@ -19,29 +18,29 @@ export default function Dashboard() {
 
   const [inputData, setInputData] = useState({});
   const [isLogin, setIsLogin] = useState(false);
- 
+
   const handleInput = (e) => {
     const input = { [e.target.name]: e.target.value };
     setInputData({ ...inputData, ...input });
   }
-  const mapData = (data) =>{
-     const fdata =  {
-        "descriptions": data.descriptions,
-        "github": data.github,
-        "name": data.name,
-        "url": data.url,
-        "date": {
-            "seconds": (new Date(data.date).getTime() / 1000),
-            "nanoseconds": 0
-        },
-        "stack": data.stack.split(',')
-      }
-      return fdata;
+  const mapData = (data) => {
+    const fdata = {
+      "descriptions": data.descriptions,
+      "github": data.github,
+      "name": data.name,
+      "url": data.url,
+      "date": {
+        "seconds": (new Date(data.date).getTime() / 1000),
+        "nanoseconds": 0
+      },
+      "stack": data.stack.split(',')
+    }
+    return fdata;
   }
   const handleSubmit = () => {
     const body = mapData(inputData);
-    addDoc(collectionRef,body).then((res)=>{
-      console.log('added',res);
+    addDoc(collectionRef, body).then((res) => {
+      console.log('added', res);
     })
   }
   useEffect(() => {
@@ -65,10 +64,10 @@ export default function Dashboard() {
     <>
       <NavBar />
       <Container
-              aria-live="polite"
-              aria-atomic="true"
-              className="container-fluid  bg-dark position-relative"
-              style={{ minHeight: '240px' }}
+        aria-live="polite"
+        aria-atomic="true"
+        className="container-fluid  bg-dark position-relative"
+        style={{ minHeight: '240px' }}
       >
         <Row>
           {/* <Toster></Toster> */}
@@ -126,12 +125,12 @@ export default function Dashboard() {
                     <Form.Control type="text" name="stack" onChange={(event) => handleInput(event)} placeholder="Tech Stack" />
                   </Form.Group>
                 </Row>
-                <Button variant="primary" type="button" onClick={()=>handleSubmit()}>Submit</Button>
+                <Button variant="primary" type="button" onClick={() => handleSubmit()}>Submit</Button>
                 <Button variant="primary" type="reset">Reset</Button>
               </Form>
             </Col>
             {/* Table */}
-            <TableData/>
+            <TableData />
           </main>
         </Row>
       </Container>

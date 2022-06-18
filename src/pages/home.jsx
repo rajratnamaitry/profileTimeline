@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import Header from '../components/header'
-import TimeLine from '../components/timeline'
-import { app, database } from '../firebase';
+import Header from '../components/common/header'
+import TimeLine from '../components/timeline/timeline'
+import { database } from '../firebase';
 import { getDocs, collection } from 'firebase/firestore'
 export default function Homepage() {
   const [list, setList] = useState([]);
@@ -9,8 +9,8 @@ export default function Homepage() {
   const collectionRef = collection(database, 'projects');
   const getProjectList = () => {
     const monthNames = ["January", "February", "March", "April", "May", "June",
-          "July", "August", "September", "October", "November", "December"
-        ];
+      "July", "August", "September", "October", "November", "December"
+    ];
     getDocs(collectionRef).then((data) => {
       const projectList = data.docs.map(e => {
         const data = { ...e.data(), id: e.id };
@@ -19,28 +19,28 @@ export default function Homepage() {
         data.date['mon'] = nDate.getMonth();
         data.date['month'] = monthNames[nDate.getMonth()];
         data.date['date'] = nDate.getDate();
-        data.date['displayDate'] = `${monthNames[nDate.getMonth()]}, ${nDate.getDate()}` ;
+        data.date['displayDate'] = `${monthNames[nDate.getMonth()]}, ${nDate.getDate()}`;
         return data;
       })
-      const monthArray = Array(12).fill().map((v,i)=>i);
-      const nYear = Array.from(new Set(projectList.map((e)=> e.date.year )));
+      const monthArray = Array(12).fill().map((v, i) => i);
+      const nYear = Array.from(new Set(projectList.map((e) => e.date.year)));
       const newProjectList = [];
       let totalInYr = 0;
-      nYear.forEach((year)=>{
-        const groupYear = projectList.filter((e)=> e.date.year == year );
+      nYear.forEach((year) => {
+        const groupYear = projectList.filter((e) => e.date.year == year);
         const nMonthMap = [];
         let totalInMon = 0
-        monthArray.forEach((mon)=>{ 
-          const monData = groupYear.filter(e=> {
-           return e.date.mon == mon
+        monthArray.forEach((mon) => {
+          const monData = groupYear.filter(e => {
+            return e.date.mon == mon
           });
-          if(monData.length){
+          if (monData.length) {
             totalInMon += monData.length;
-            nMonthMap.push({mon,monData, month:monthNames[mon]}); 
+            nMonthMap.push({ mon, monData, month: monthNames[mon] });
           }
         });
-        totalInYr+=totalInMon;
-        newProjectList.push({year,nMonthMap, inYear: groupYear.length, totalInMon})
+        totalInYr += totalInMon;
+        newProjectList.push({ year, nMonthMap, inYear: groupYear.length, totalInMon })
       });
       setTotalInYr(totalInYr);
       setList(newProjectList);
@@ -53,7 +53,9 @@ export default function Homepage() {
   return (
     <div className="container">
       <Header />
-      {list.sort((a,b)=>b.year - a.year).map(e => <TimeLine key={e.id} project={e} total={inYr} />)}
+      {list
+        .sort((a, b) => b.year - a.year)
+        .map(e => <TimeLine key={e.year} project={e} total={inYr} />)}
     </div>
   )
 }

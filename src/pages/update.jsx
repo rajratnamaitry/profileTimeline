@@ -1,14 +1,14 @@
 import { app, database } from "../firebase";
+import { doc, getDoc, updateDoc, collection } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { doc,getDoc,updateDoc, collection } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-import NavBar from '../components/navBar';
 import Row from 'react-bootstrap/Row';
+import NavBar from '../components/common/navBar';
 export default function Update() {
   const params = useParams();
   const auth = getAuth();
@@ -21,7 +21,7 @@ export default function Update() {
     setInputData({ ...inputData, ...input });
   }
   const mapData = (data) => {
-    const stack = ( typeof data.stack == 'string') ? data.stack.split(',') : data.stack;
+    const stack = (typeof data.stack == 'string') ? data.stack.split(',') : data.stack;
     const fdata = {
       "mode": data.mode,
       "descriptions": data.descriptions,
@@ -34,18 +34,18 @@ export default function Update() {
   }
   const handleSubmit = () => {
     const body = mapData(inputData);
-    const col = doc(database, 'projects',params.id)
+    const col = doc(database, 'projects', params.id)
     updateDoc(col, body).then((res) => {
       alert('updated')
     })
   }
   const getProject = () => {
-    const col = doc(database, 'projects',params.id)
+    const col = doc(database, 'projects', params.id)
     getDoc(col).then((data) => {
-      console.log('data',data.data())
+      console.log('data', data.data())
       setInputData(data.data());
     });
-}
+  }
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -101,30 +101,30 @@ export default function Update() {
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridAddress1">
                   <Form.Label>URL</Form.Label>
-                  <Form.Control 
-                      type="text" 
-                      name="url" 
-                      value={inputData.url}
-                      onChange={(event) => handleInput(event)} placeholder="Public url" />
+                  <Form.Control
+                    type="text"
+                    name="url"
+                    value={inputData.url}
+                    onChange={(event) => handleInput(event)} placeholder="Public url" />
                 </Form.Group>
                 <Form.Group as={Col} controlId="formGridAddress2">
                   <Form.Label>Github</Form.Label>
                   <Form.Control type="text"
-                      value={inputData.github} 
-                      name="github" onChange={(event) => handleInput(event)} placeholder="Github url" />
+                    value={inputData.github}
+                    name="github" onChange={(event) => handleInput(event)} placeholder="Github url" />
                 </Form.Group>
               </Row>
               <Form.Group className="mb-3" controlId="formGridAddress2">
                 <Form.Label>Descriptions</Form.Label>
-                <Form.Control type="text" 
+                <Form.Control type="text"
                   value={inputData.descriptions}
-                name="descriptions" onChange={(event) => handleInput(event)} placeholder="Descriptions" />
+                  name="descriptions" onChange={(event) => handleInput(event)} placeholder="Descriptions" />
               </Form.Group>
 
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formGridCity">
                   <Form.Label>Stack</Form.Label>
-                  <Form.Control type="text" 
+                  <Form.Control type="text"
                     value={inputData.stack}
                     name="stack" onChange={(event) => handleInput(event)} placeholder="Tech Stack" />
                 </Form.Group>
