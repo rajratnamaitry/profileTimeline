@@ -1,4 +1,4 @@
-import { BsLinkedin } from "react-icons/bs";
+import { BsLinkedin, BsMedium } from "react-icons/bs";
 import { DiGithubBadge, DiStackoverflow } from "react-icons/di";
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -17,6 +17,9 @@ export default function Header() {
             <img src={img} alt="Avatar" className="avatar" />
             <h1>Rajratna Maitry</h1>
             <ButtonGroup size="sm" >
+                <a className={CLASS_NAME} target="_blank" href="https://rajratnamaitry.medium.com/" >
+                    <BsMedium size={SIZE} />
+                </a>
                 <a className={CLASS_NAME} target="_blank" href="https://github.com/rajratnamaitry/" >
                     <DiGithubBadge size={SIZE} />
                 </a>

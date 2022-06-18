@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "firebase deploy --only hosting:portfolio-timeline"
+    "deploy": "npm run build && firebase deploy --only hosting:portfolio-timeline"
   },
   "dependencies": {
     "bootstrap": "^5.1.3",

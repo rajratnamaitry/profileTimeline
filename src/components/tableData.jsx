@@ -24,10 +24,11 @@ export default function TableData() {
                     <tr>
                         <th>Name</th>
                         <th>Date</th>
+                        <th>Options</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {list.map((td)=> <Tbody name={td.name} date={td.date.seconds} key={td.id} />)}
+                    {list.sort((a,b)=>a.date.seconds - b.date.seconds).map((td)=> <Tbody name={td.name} date={td.date.seconds} key={td.id} id={td.id} />)}
                 </tbody>
             </table>
         </div>

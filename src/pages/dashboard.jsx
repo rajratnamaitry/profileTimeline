@@ -1,16 +1,17 @@
-import React from 'react'
+import { addDoc, collection } from 'firebase/firestore'
+import { app, database } from "../firebase";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { useEffect, useState } from 'react'
+import { useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button'
+import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Button from 'react-bootstrap/Button'
-import { useEffect, useState } from 'react'
-import { app, database } from "../firebase";
-import { useNavigate } from "react-router-dom";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import { addDoc, collection } from 'firebase/firestore'
 import NavBar from '../components/navBar';
+import React from 'react'
+import Row from 'react-bootstrap/Row'
 import TableData from '../components/TableData';
+// import Toster from '../components/toster';
 export default function Dashboard() {
   const auth = getAuth();
   const collectionRef = collection(database, 'projects');
@@ -39,7 +40,6 @@ export default function Dashboard() {
   }
   const handleSubmit = () => {
     const body = mapData(inputData);
-    console.log('data',body)
     addDoc(collectionRef,body).then((res)=>{
       console.log('added',res);
     })
@@ -64,8 +64,14 @@ export default function Dashboard() {
   return (
     <>
       <NavBar />
-      <Container className="container-fluid">
+      <Container
+              aria-live="polite"
+              aria-atomic="true"
+              className="container-fluid  bg-dark position-relative"
+              style={{ minHeight: '240px' }}
+      >
         <Row>
+          {/* <Toster></Toster> */}
           {/* SideNav bar */}
           <main role="main" className="col-md-9 ml-sm-auto col-lg-8 pt-3 px-4">
             <div
@@ -124,7 +130,6 @@ export default function Dashboard() {
                 <Button variant="primary" type="reset">Reset</Button>
               </Form>
             </Col>
-            <h2>Section title</h2>
             {/* Table */}
             <TableData/>
           </main>
